@@ -41,4 +41,3 @@ def union_keep_A_and_new_from_B_no_pandas(a_csv, b_csv, out_csv):
                         "defaultUrl": ""
                     })
 
-union_keep_A_and_new_from_B_no_pandas("select_country_from_location.csv","exact_country_in_vaccination.csv","final_union_country.csv")

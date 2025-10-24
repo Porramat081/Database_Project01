@@ -38,4 +38,6 @@ def map_location_to_iso_no_pandas(input_a, input_b, output_csv,
             wa.writerow(row)
 
 # Example:
-map_location_to_iso_no_pandas("final_vaccination_merged.csv", "final_union_country.csv", "final_vaccination_mapped.csv")
+# map_location_to_iso_no_pandas("final_vaccination_merged.csv", "final_union_country.csv", "final_vaccination_mapped.csv")
+
+map_location_to_iso_no_pandas("out_select_vaccine.csv","final_union_country.csv","final_vaccine_name.csv")

@@ -29,7 +29,8 @@ def unique_values_from_column(input_csv: str,
     return uniques
 
 # Example:
-vals = unique_values_from_column("final_vaccination_mapped.csv", "source_url")
+vals = unique_values_from_column("vaccinations-by-age-group.csv", "age_group")
+
 # print(vals)
 
 def write_uniques_to_csv(values: list[str], output_csv: str, header: str = "unique_values"):
@@ -40,4 +41,4 @@ def write_uniques_to_csv(values: list[str], output_csv: str, header: str = "uniq
             w.writerow([v])
 
 # Example:
-write_uniques_to_csv(vals, "unique_source_url.csv", header="url")
+write_uniques_to_csv(vals, "unique_age_group.csv", header="ageRange")
