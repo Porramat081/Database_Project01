@@ -1,0 +1,95 @@
+DROP TABLE IF EXISTS country;
+
+CREATE TABLE country (
+    isoCode     CHAR (15) NOT NULL,
+    countryName CHAR (20),
+    sourceName  TEXT,
+    PRIMARY KEY (
+        isoCode
+    )
+);
+
+DROP TABLE IF EXISTS ageGroup;
+
+CREATE TABLE ageGroup (
+    ageRange CHAR (20) NOT NULL,
+    PRIMARY KEY (
+        ageRange
+    )
+);
+
+DROP TABLE IF EXISTS sourceUrl;
+
+CREATE TABLE sourceUrl (
+    url TEXT NOT NULL,
+    PRIMARY KEY (
+        url
+    )
+);
+
+DROP TABLE IF EXISTS vaccination;
+
+CREATE TABLE vaccination (
+    isoCode               CHAR (15) NOT NULL,
+    date                  TEXT      NOT NULL,
+    peopleVaccinated      INTEGER,
+    peopleFullyVaccinated INTEGER,
+    peopleBooster         INTEGER,
+    url                   TEXT,
+    PRIMARY KEY (
+        isoCode,
+        date
+    ),
+    FOREIGN KEY (
+        isoCode
+    )
+    REFERENCES country (isoCode) ON DELETE CASCADE,
+    FOREIGN KEY (
+        url
+    )
+    REFERENCES sourceUrl (url) 
+);
+
+DROP TABLE IF EXISTS vaccineAgeGroup;
+
+CREATE TABLE vaccineAgeGroup (
+    isoCode                     CHAR (15) NOT NULL,
+    date                        TEXT      NOT NULL,
+    ageRange                    CHAR (20) NOT NULL,
+    peopleVaccinatedPer100      REAL,
+    peopleFullyVaccinatedPer100 REAL,
+    peopleBoosterPer100         REAL,
+    PRIMARY KEY (
+        isoCode,
+        date,
+        ageRange
+    ),
+    FOREIGN KEY (
+        isoCode,
+        date
+    )
+    REFERENCES vaccination (isoCode,date),
+    FOREIGN KEY (
+        ageRange
+    )
+    REFERENCES ageGroup (ageRange) 
+);
+
+DROP TABLE IF EXISTS vaccine;
+
+CREATE TABLE vaccine (
+    isoCode          CHAR (15) NOT NULL,
+    date             TEXT      NOT NULL,
+    vaccine          TEXT      NOT NULL,
+    totalVaccination INTEGER,
+    PRIMARY KEY (
+        isoCode,
+        date,
+        vaccine
+    ),
+    FOREIGN KEY (
+        isoCode,
+        date
+    )
+    REFERENCES vaccination (isoCode,date)
+);
