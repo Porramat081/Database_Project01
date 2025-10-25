@@ -32,10 +32,12 @@ def add_right_constant_column_no_pandas(input_csv, output_csv, new_col_name="url
             else:
                 writer.writerow(row + [value])
 
+
+add_right_constant_column_no_pandas("unique_state.csv","uniqye_state_usa.csv",new_col_name="isoCode",value="USA")
 #select_columns_no_pandas("vaccinations.csv","exact_vaccination.csv",["iso_code","date","people_vaccinated","people_fully_vaccinated","total_boosters"])
 
 #add_right_constant_column_no_pandas("exact_vaccination.csv","add_url_vaccination.csv")
 
 #select_columns_no_pandas("vaccinations.csv","exact_vaccination.csv",["location","date","people_vaccinated","people_fully_vaccinated","total_boosters"])
 
-select_columns_no_pandas("merge_csv.csv","exact_merge.csv",["location","date","people_vaccinated","people_fully_vaccinated","total_boosters","source_url"])
+#select_columns_no_pandas("merge_csv.csv","exact_merge.csv",["location","date","people_vaccinated","people_fully_vaccinated","total_boosters","source_url"])

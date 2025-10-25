@@ -18,5 +18,9 @@ def select_columns_no_pandas(input_csv, output_csv, columns):
 
 #select_columns_no_pandas("locations.csv","select_country_from_location.csv",["iso_code","location","source_name","source_website"])
 
-select_columns_no_pandas("vaccinations-by-manufacturer.csv","vaccine_selection.csv",["location","date","vaccine"])
-select_columns_no_pandas("merge_csv.csv","merge_select.csv",["location","date","vaccine"])
+# select_columns_no_pandas("vaccinations-by-manufacturer.csv","vaccine_selection.csv",["location","date","vaccine"])
+# select_columns_no_pandas("merge_csv.csv","merge_select.csv",["location","date","vaccine"])
+
+# select_columns_no_pandas("vaccinations-by-age-group.csv","exact_vaccine_age_group.csv",["location","date","age_group","people_vaccinated_per_hundred","people_fully_vaccinated_per_hundred","people_with_booster_per_hundred"])
+
+select_columns_no_pandas("us_state_vaccinations.csv","exact_state.csv",["location"])

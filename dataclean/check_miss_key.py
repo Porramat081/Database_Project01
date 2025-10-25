@@ -78,7 +78,7 @@ def check_fk_iso_date(
 # --------------------------
 # Example (remove or adapt):
 bad_rows, missing_keys = check_fk_iso_date(
-    fact_csv="final_vaccine_name.csv",               # child table with FK (isoCode,date)
+    fact_csv="final_vaccine_age_group.csv",               # child table with FK (isoCode,date)
     ref_csv="ref_vaccine.csv",                # parent table with PK/unique (isoCode,date)
     violations_out_csv="fk_violations_rows.csv",
     missing_keys_out_csv="fk_missing_keys.csv"

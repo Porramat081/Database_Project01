@@ -1,7 +1,7 @@
 import csv
 
 def map_location_to_iso_no_pandas(input_a, input_b, output_csv,
-                                  a_location_col="countryName",
+                                  a_location_col="location",
                                   b_location_col="countryName",
                                   b_iso_col="isoCode"):
     # Build a lookup dict from B: normalized location -> isoCode
@@ -40,4 +40,4 @@ def map_location_to_iso_no_pandas(input_a, input_b, output_csv,
 # Example:
 # map_location_to_iso_no_pandas("final_vaccination_merged.csv", "final_union_country.csv", "final_vaccination_mapped.csv")
 
-map_location_to_iso_no_pandas("out_select_vaccine.csv","final_union_country.csv","final_vaccine_name.csv")
+map_location_to_iso_no_pandas("exact_vaccine_age_group.csv","final_union_country.csv","final_vaccine_name.csv")
