@@ -1,0 +1,6 @@
+Select strftime('%Y',v.date) as 'Year' , 
+        strftime('%m',v.date) as 'Month', 
+        sum(v.peopleVaccinated + v.peopleFullyVaccinated+v.peopleBooster) as 'Monthly Vaccinations'
+from vaccination v join country c on v.isoCode = c.isoCode 
+where LOWER(countryName) = 'australia' and v.date <= '2021-07-30'
+group by strftime('%Y',v.date) , strftime('%m',v.date);
