@@ -1,0 +1,51 @@
+-- Task D1
+SELECT 	strftime('%Y', v.date) AS Year,
+	strftime('%m', v.date) AS Month,
+	sum(v.peopleVaccinated + v.peopleFullyVaccinated + v.peopleBooster) AS 'Monthly Vaccinations'
+FROM vaccinationCountry v
+	JOIN country c 
+		ON v.isoCode = c.isoCode
+WHERE LOWER(countryName) = 'australia' 
+AND v.date <= '2021-07-30'
+GROUP BY strftime('%Y', v.date),strftime('%m', v.date);
+
+-- Task D2
+SELECT  strftime('%Y', t.month_start) AS "Year (OY)",
+  	strftime('%m', t.month_start) AS "Month (OM)",
+  	COALESCE(SUM(CASE WHEN t.country = 'Australia' THEN t.monthly_change END), 0) AS "Australia",
+  	COALESCE(SUM(CASE WHEN t.country = 'India' THEN t.monthly_change END), 0) AS "India",
+  	COALESCE(SUM(CASE WHEN t.country = 'United States' THEN t.monthly_change END), 0) AS "United States",
+  	COALESCE(SUM(CASE WHEN t.country = 'Argentina' THEN t.monthly_change END), 0) AS "Argentina",
+  	COALESCE(SUM(CASE WHEN t.country = 'Canada' THEN t.monthly_change END), 0) AS "Canada",
+  	COALESCE(SUM(CASE WHEN t.country = 'Greece' THEN t.monthly_change END), 0) AS "Greece"
+FROM (
+  SELECT m.country,
+    	 m.month_start,
+    CASE
+      WHEN p.VOM IS NULL THEN 0
+      ELSE (m.VOM - p.VOM)
+    END AS monthly_change
+  FROM (
+    SELECT C.countryName AS country,
+      	   date(strftime('%Y-%m-01', V.date)) AS month_start,
+           MAX(V.peopleFullyVaccinated) AS VOM
+    FROM VaccinationCountry V
+      JOIN Country C USING (isoCode)
+    WHERE C.countryName IN ('Australia','India','United States','Argentina','Canada','Greece')
+    GROUP BY country, month_start
+  ) AS m
+  LEFT JOIN (
+    SELECT C.countryName AS country,
+      	   date(strftime('%Y-%m-01', V.date)) AS month_start,
+      	   MAX(V.peopleFullyVaccinated) AS VOM
+    FROM VaccinationCountry V
+      JOIN Country C USING (isoCode)
+    WHERE C.countryName IN ('Australia','India','United States','Argentina','Canada','Greece')
+    GROUP BY country, month_start
+  ) AS p
+    ON p.country = m.country
+   AND p.month_start = date(m.month_start, '-1 month')
+) AS t
+GROUP BY t.month_start
+HAVING COUNT(DISTINCT t.country) = 6
+ORDER BY "Year (OY)", "Month (OM)";
